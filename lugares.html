@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lugares para irmos 🌍</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #fff0f5;
+      font-family: 'Arial', sans-serif;
+      position: relative;
+      padding-bottom: 80px;
+      overflow-x: hidden;
+    }
+
+    nav {
+      background-color: #8B1C36;
+      padding: 12px 20px;
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 10001;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f5cbd1;
+    }
+
+    h1 {
+      margin-top: 80px;
+      text-align: center;
+      color: #8B1C36;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(139, 28, 54, 0.3);
+    }
+
+    h2 {
+      color: #8B1C36;
+      margin-bottom: 15px;
+    }
+
+    ul#lista-lugares {
+      list-style: disc inside;
+      color: #66101F;
+      margin-bottom: 25px;
+      max-height: 200px;
+      overflow-y: auto;
+      padding-left: 15px;
+      border: 1px solid #8B1C36;
+      border-radius: 8px;
+      background: #fbe7eb;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      color: #8B1C36;
+      font-size: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      border: 2px solid #8B1C36;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 16px;
+      resize: vertical;
+      font-family: 'Arial', sans-serif;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #8B1C36;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #66101F;
+    }
+
+    .music-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #8B1C36;
+      color: white;
+      padding: 10px 12px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #d98c9b;
+      z-index: 10000;
+      user-select: none;
+    }
+
+    .music-icon:hover {
+      background-color: #66101F;
+    }
+
+    .heart {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+      background-size: cover;
+      animation: subir 6s linear forwards;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes subir {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-300px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Início</a>
+  <a href="historia.html">Nossa História</a>
+  <a href="momentos.html">Momentos</a>
+  <a href="carta.html">Carta</a>
+  <a href="fotos.html">Fotos</a>
+  <a href="lugares.html">Lugares para irmos</a>
+  <a href="memoria.html">Jogo da Memória</a>
+   <a href="desafios.html">Jogos</a>
+</nav>
+
+
+<h1>Lugares para irmos 🌍</h1>
+
+<div class="container">
+  <h2>Lugares sugeridos:</h2>
+  <ul id="lista-lugares">
+
+    <li>Zoológico ;</li>
+    <li>Thermas do vale; 🌊</li>
+    <li>Springland; 🍔
+    <li>Shopping;🏪</li>
+  </ul>
+
+  <form id="sugestoesForm">
+    <label for="sugestao">Deixe aqui suas sugestões de lugares para irmos juntos:</label>
+    <textarea id="sugestao" placeholder="Escreva sua sugestão..." required></textarea>
+    <button type="submit">Enviar Sugestão</button>
+  </form>
+  <div id="mensagem" style="margin-top:15px; color: #8B1C36; font-weight: bold;"></div>
+</div>
+
+<div class="music-icon" onclick="tocarYoutube()">🎵</div>
+
+<iframe id="ytPlayer" width="0" height="0" 
+  src="https://www.youtube.com/embed/nyuo9-OjNNg?enablejsapi=1" 
+  frameborder="0" allow="autoplay"></iframe>
+
+<script>
+  // Música
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ytPlayer');
+  }
+
+  function tocarYoutube() {
+    if (player && player.getPlayerState() === 1) {
+      player.pauseVideo();
+    } else {
+      player.playVideo();
+    }
+  }
+
+  // Corações
+  function criarCoracao() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = window.innerHeight + "px";
+    heart.style.width = heart.style.height = (Math.random() * 20 + 20) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(criarCoracao, 400);
+
+  // Formulário
+  const form = document.getElementById('sugestoesForm');
+  const mensagem = document.getElementById('mensagem');
+  const lista = document.getElementById('lista-lugares');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const texto = form.sugestao.value.trim();
+    if (texto) {
+      const novoLugar = document.createElement('li');
+      novoLugar.textContent = texto;
+      lista.appendChild(novoLugar);
+      mensagem.textContent = "Obrigada pela sugestão! ❤️";
+      form.reset();
+    } else {
+      mensagem.textContent = "Por favor, escreva sua sugestão antes de enviar.";
+    }
+  });
+</script>
+
+</body>
+</html>
+

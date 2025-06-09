@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Momentos ✨</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* MESMO ESTILO */
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #f8d7da;
+      overflow: hidden;
+      position: relative;
+      font-family: Arial, sans-serif;
+      color: #800020;
+      text-align: center;
+    }
+    nav {
+      background: #800020;
+      padding: 10px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: floatUp 4s linear forwards;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: 10px;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(-45deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-200px) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+    .music-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #cc3366;
+      color: white;
+      padding: 10px 12px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffb6c1;
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+    .music-icon:hover {
+      background-color: #a62d52;
+    }
+  </style>
+</head>
+<body>
+ <nav>
+  <a href="index.html">Início</a>
+  <a href="historia.html">Nossa História</a>
+  <a href="momentos.html">Momentos</a>
+  <a href="carta.html">Carta</a>
+  <a href="fotos.html">Fotos</a>
+  <a href="lugares.html">Lugares para irmos</a>
+  <a href="memoria.html">Jogo da Memória</a>
+ <a href="desafios.html">Jogos</a>
+</nav>
+
+
+  <h1>Momentos ✨</h1>
+  <p>Relembre aqui os momentos mais especiais juntos 💕</p>
+
+  <div class="music-icon" onclick="tocarYoutube()">🎵</div>
+
+  <iframe id="ytPlayer" width="0" height="0" 
+    src="https://www.youtube.com/embed/nyuo9-OjNNg?enablejsapi=1" 
+    frameborder="0" allow="autoplay"></iframe>
+
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytPlayer');
+    }
+    function tocarYoutube() {
+      if (player && player.getPlayerState() === 1) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+    }
+
+    function criarCoracao(x, y) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = x + "px";
+      heart.style.top = y + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    setInterval(() => {
+      const x = Math.random() * window.innerWidth;
+      const y = window.innerHeight;
+      criarCoracao(x, y);
+    }, 300);
+
+    document.addEventListener("click", (e) => {
+      criarCoracao(e.pageX, e.pageY);
+    });
+  </script>
+</body>
+</html>
+

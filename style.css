@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff0f5;
+  overflow: hidden;
+  position: relative;
+}
+
+nav {
+  background-color: #cc3366;
+  padding: 10px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.heart {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+  background-size: cover;
+  animation: subir 6s linear forwards;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes subir {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-300px) scale(1.5);
+    opacity: 0;
+  }
+}

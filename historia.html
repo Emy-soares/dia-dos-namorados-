@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nossa História - Livro Interativo</title>
+<style>
+  /* Menu vinho fixo */
+  nav {
+    background-color: #cc3366;
+    padding: 12px 20px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10001;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #ffb6c1;
+  }
+
+  body {
+    margin: 0; 
+    font-family: 'Arial', sans-serif;
+    background: #fff0f5;
+    color: #6a1b3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-top: 60px; /* espaço para o menu */
+  }
+
+  .book {
+    width: 90vw;
+    max-width: 600px;
+    height: 80vh;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page {
+    flex: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .page h1, .page h2 {
+    margin-bottom: 20px;
+    color: #cc3366;
+  }
+
+  .page p {
+    margin: 0 0 1rem 0;
+  }
+
+  /* Página inicial visível */
+  .page.visible {
+    position: relative;
+    transform: rotateY(0deg);
+    opacity: 1;
+    z-index: 10;
+  }
+
+  /* Página à direita (próxima) */
+  .page.next {
+    transform: rotateY(-180deg);
+    opacity: 0;
+    z-index: 5;
+  }
+
+  /* Página à esquerda (anterior) */
+  .page.prev {
+    transform: rotateY(180deg);
+    opacity: 0;
+    z-index: 5;
+  }
+
+  /* Botões para virar página */
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #cc3366;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #a62d52;
+    user-select: none;
+    transition: background-color 0.3s ease;
+    z-index: 20;
+  }
+  .nav-button:hover {
+    background-color: #a62d52;
+  }
+  .nav-button:disabled {
+    background-color: #e8a8bd;
+    cursor: default;
+    box-shadow: none;
+  }
+
+  .nav-prev {
+    left: 10px;
+  }
+  .nav-next {
+    right: 10px;
+  }
+
+  /* Scroll barra pequena */
+  .page::-webkit-scrollbar {
+    width: 6px;
+  }
+  .page::-webkit-scrollbar-thumb {
+    background: #cc3366;
+    border-radius: 3px;
+  }
+
+  /* Responsividade */
+  @media (max-width: 400px) {
+    .book {
+      height: 90vh;
+    }
+    .nav-button {
+      padding: 10px 16px;
+      font-size: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Início</a>
+  <a href="historia.html">Nossa História</a>
+  <a href="momentos.html">Momentos</a>
+  <a href="carta.html">Carta</a>
+  <a href="fotos.html">Fotos</a>
+  <a href="lugares.html">Lugares para irmos</a>
+  <a href="memoria.html">Jogo da Memória</a>
+   <a href="desafios.html">Jogos</a>
+</nav>
+
+
+<div class="book" aria-label="Livro nossa história">
+  <button class="nav-button nav-prev" aria-label="Página anterior" disabled>&lt;</button>
+
+  <!-- Capa -->
+<!-- Capa -->
+<div class="page visible" id="page0" tabindex="0" aria-live="polite" style="background-color: #b30000; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+  <!-- Coração branco grande -->
+  <svg width="100" height="90" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 20px;">
+    <path fill="#fff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+    4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
+    14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+    6.86-8.55 11.54L12 21.35z"/>
+  </svg>
+
+  <h1 style="font-size: 2.5rem; margin: 0;">Um livro sobre nós</h1>
+  <p style="text-align: center; font-size: 1.2rem; max-width: 300px; margin-top: 10px;">Bem-vindo ao nosso livro interativo!<br>Vamos lembrar juntos da nossa história.</p>
+</div>
+
+
+
+
+  <!-- Capítulos -->
+  <div class="page next" id="page1" tabindex="0" aria-live="polite">
+    <h2>Capítulo 1</h2>
+    <p>Era uma vez, em um dia ensolarado, quando nossos caminhos se cruzaram pela primeira vez...</p>
+    <p>Desde então, cada momento juntos se tornou especial e inesquecível.</p>
+  </div>
+
+  <div class="page next" id="page2" tabindex="0" aria-live="polite">
+    <h2>Capítulo 2</h2>
+    <p>Lá fomos nós explorar lugares incríveis, construir memórias e sonhar juntos com o futuro.</p>
+    <p>Cada desafio enfrentado só fortaleceu nosso amor e cumplicidade.</p>
+  </div>
+
+  <div class="page next" id="page3" tabindex="0" aria-live="polite">
+    <h2>Capítulo 3</h2>
+    <p>Hoje celebramos nossa história com carinho e gratidão por cada instante vivido.</p>
+    <p>Que venham muitos capítulos ainda para escrever.</p>
+  </div>
+
+  <button class="nav-button nav-next" aria-label="Próxima página">&gt;</button>
+</div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const prevBtn = document.querySelector('.nav-prev');
+  const nextBtn = document.querySelector('.nav-next');
+
+  let currentPage = 0;
+
+  function updatePages() {
+    pages.forEach((page, i) => {
+      if (i === currentPage) {
+        page.className = 'page visible';
+        page.setAttribute('tabindex', '0');
+      } else if (i < currentPage) {
+        page.className = 'page prev';
+        page.setAttribute('tabindex', '-1');
+      } else {
+        page.className = 'page next';
+        page.setAttribute('tabindex', '-1');
+      }
+    });
+
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage === pages.length -1;
+
+    // Para foco na página atual para acessibilidade
+    pages[currentPage].focus();
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage--;
+      updatePages();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < pages.length -1) {
+      currentPage++;
+      updatePages();
+    }
+  });
+
+  // Atualiza páginas na carga inicial
+  updatePages();
+</script>
+
+</body>
+</html>
+
