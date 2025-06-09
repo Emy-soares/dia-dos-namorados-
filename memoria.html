@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jogo da Memória - Dia dos Namorados</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #800000;
+      padding: 15px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    header h1 {
+      color: white;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #a52a2a;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin-top: 60px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 18px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      color: #d6336c;
+      margin-top: 20px;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 15px;
+      justify-content: center;
+      margin: 40px auto;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background-color: white;
+      border: 2px solid #d6336c;
+      border-radius: 10px;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Jogo da memória
+    
+  </header>
+
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="historia.html">Nossa História</a>
+    <a href="momentos.html">Momentos</a>
+    <a href="carta.html">Carta</a>
+    <a href="fotos.html">Fotos</a>
+    <a href="lugares.html">Lugares</a>
+    <a href="memoria.html">Jogos</a>
+      <a href="desafios.html">Jogos</a>
+  </nav>
+
+  <div class="game-board" id="game-board"></div>
+
+  <audio id="flipSound" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
+
+  <script>
+    const imagens = [
+      'foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg',
+      'foto5.jpg', 'foto6.jpg', 'foto7.jpg', 'foto8.jpg'
+    ];
+
+    const embaralhadas = [...imagens, ...imagens].sort(() => 0.5 - Math.random());
+
+    const tabuleiro = document.getElementById('game-board');
+    const som = document.getElementById('flipSound');
+
+    let primeiraCarta = null;
+    let bloqueado = false;
+
+    embaralhadas.forEach((img) => {
+      const carta = document.createElement('div');
+      carta.className = 'card';
+      carta.dataset.img = img;
+      carta.style.backgroundImage = "url('')";
+
+      carta.addEventListener('click', () => {
+        if (bloqueado || carta.classList.contains('revelada')) return;
+
+        som.currentTime = 0;
+        som.play();
+
+        carta.style.backgroundImage = `url('${img}')`;
+        carta.classList.add('revelada');
+
+        if (!primeiraCarta) {
+          primeiraCarta = carta;
+        } else {
+          if (primeiraCarta.dataset.img === carta.dataset.img) {
+            primeiraCarta = null;
+          } else {
+            bloqueado = true;
+            setTimeout(() => {
+              carta.style.backgroundImage = "url('')";
+              primeiraCarta.style.backgroundImage = "url('')";
+              carta.classList.remove('revelada');
+              primeiraCarta.classList.remove('revelada');
+              primeiraCarta = null;
+              bloqueado = false;
+            }, 1000);
+          }
+        }
+      });
+
+      tabuleiro.appendChild(carta);
+    });
+  </script>
+</body>
+</html>

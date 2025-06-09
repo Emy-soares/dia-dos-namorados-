@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz do Amor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #800000;
+      padding: 15px;
+    }
+
+    header h1 {
+      color: white;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #a52a2a;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 18px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    .question {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #d6336c;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #d6336c;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #c2185b;
+    }
+
+    .challenge {
+      font-size: 28px;
+      color: #800000;
+      margin-top: 40px;
+      animation: pop 0.3s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiz do Amor 💘</h1>
+  </header>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="historia.html">Nossa História</a>
+    <a href="momentos.html">Momentos</a>
+    <a href="carta.html">Carta</a>
+    <a href="fotos.html">Fotos</a>
+    <a href="lugares.html">Lugares</a>
+    <a href="desafios.html">Jogos</a>
+  </nav>
+
+  <div class="container">
+    <div id="question" class="question"></div>
+    <div class="buttons">
+      <button onclick="responder('certo')">Certo</button>
+      <button onclick="responder('errado')">Errado</button>
+    </div>
+    <div id="desafio" class="challenge"></div>
+  </div>
+
+  <script>
+    const perguntas = [
+      "Qual foi a primeira foto que postamos juntos?",
+      "Qual foi o primeiro presente que te dei?",
+      "Onde demos o nosso primeiro abraço?",
+      "O que mais acalma ele(a)?",
+      "O que ele(a) faz quando está com ciúmes?",
+      "De quem foi o primeiro 'te amo'?",
+      "Quem é mais teimoso(a)?",
+      "Em qual momento você percebeu que estava se apaixonando?",
+      "O nosso primeiro beijo foi em que dia da semana? (Terça, Quinta ou Sexta)?",
+      "O que mudou em mim desde que te conheci?"
+    ];
+
+    const desafiosBons = [
+      "Dê um abraço de 2 minutos sem soltar.",
+      "Diga 5 coisas que ama em mim.",
+      "Me diga o que mais te atrai em mim.",
+      "Faça uma lista de 5 coisas que quer viver comigo.",
+      "Me chame pra sair como se fosse nosso primeiro encontro.",
+      "Me chama pra dançar como se estivéssemos num baile romântico.",
+      "Escolha um objeto por perto e diga como ele representa o nosso amor.",
+      "Fale 3 coisas que ama quando estamos juntos."
+    ];
+
+    const desafiosRuins = [
+      "Imite um animal até eu adivinhar qual é.",
+      "Me deixe te maquiar por 5 minutos.",
+      "Fique 10 minutos sem falar nada.",
+      "Fique sem piscar por 1:30.",
+      "Faça uma dancinha."
+    ];
+
+    let perguntaAtual = 0;
+
+    function mostrarPergunta() {
+      if (perguntaAtual < perguntas.length) {
+        document.getElementById('question').textContent = perguntas[perguntaAtual];
+        document.getElementById('desafio').textContent = "";
+      } else {
+        document.getElementById('question').textContent = "Fim do Quiz! 💖";
+        document.querySelector('.buttons').style.display = 'none';
+      }
+    }
+
+    function responder(resposta) {
+      const desafio = resposta === 'certo'
+        ? desafiosBons[Math.floor(Math.random() * desafiosBons.length)]
+        : desafiosRuins[Math.floor(Math.random() * desafiosRuins.length)];
+
+      document.getElementById('question').textContent = "";
+      document.getElementById('desafio').textContent = desafio;
+
+      setTimeout(() => {
+  perguntaAtual++;
+  mostrarPergunta();
+}, 15000); // mostra o desafio por 15 segundos
+    }
+
+    mostrarPergunta();
+  </script>
+</body>
+</html>
